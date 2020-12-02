@@ -1,0 +1,11 @@
+﻿<Application x:Class="EgeCreator.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:NetExtender.GUI.WPF.Converters;assembly=NetExtender"
+             xmlns:drawing="clr-namespace:System.Drawing;assembly=System.Windows.Extensions"
+             StartupUri="View/WPF/MainWindow.xaml">
+    <Application.Resources>
+        <BitmapImage x:Key="Icon" UriSource="View/Resources/icon.ico" />
+        <drawing:ImageConverter x:Key="ImageConverter"/>
+    </Application.Resources>
+</Application>

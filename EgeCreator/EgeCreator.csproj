@@ -1,0 +1,86 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>.\\View\\Resources\\icon.ico</ApplicationIcon>
+        <StartupObject>EgeCreator.Program</StartupObject>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="DynamicData" Version="6.17.14" />
+      <PackageReference Include="DynamicData.ReactiveUI" Version="6.11.0.2613" />
+      <PackageReference Include="Fody" Version="6.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft-WindowsAPICodePack-Core" Version="1.1.4" />
+      <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="ReactiveUI" Version="12.1.5" />
+      <PackageReference Include="ReactiveUI.Fody" Version="12.1.5" />
+      <PackageReference Include="ReactiveUI.Validation" Version="1.8.6" />
+      <PackageReference Include="ReactiveUI.WPF" Version="12.1.5" />
+      <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+      <PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
+      <PackageReference Include="System.Reactive" Version="5.0.0" />
+      <PackageReference Include="System.Reactive.Core" Version="5.0.0" />
+      <PackageReference Include="System.Reactive.Interfaces" Version="5.0.0" />
+      <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
+      <PackageReference Include="System.ServiceModel.Primitives" Version="4.8.0" />
+      <PackageReference Include="WpfMath" Version="0.9.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="View\Resources\icon.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="View\Resources\Resources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="View\Winforms\Forms\MainForm.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Model\Generators\Math\Math1.cs">
+        <DependentUpon>MathTasks.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Model\Generators\Math\Math6.cs">
+        <DependentUpon>MathTasks.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Model\Generators\Math\Math13.cs">
+        <DependentUpon>MathTasks.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="View\Resources\icon.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="View\Resources\gif.gif" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="View\Resources\Resources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="NetExtender, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Core\NetExtender\bin\Release\net5.0-windows\NetExtender.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>
