@@ -10,6 +10,7 @@ using EgeCreator.Model.Common;
 using EgeCreator.Model.Generators.Math;
 using EgeCreator.Model.Options;
 using EgeCreator.View.Winforms.Controls.Exercise;
+using NetExtender.Utils.GUI;
 using NetExtender.Utils.GUI.WinForms.Controls;
 using NetExtender.Utils.IO;
 
@@ -27,7 +28,9 @@ namespace EgeCreator.View.Winforms.Forms
             SetMessage(_githubButton, Globals.Localization.OpenGitHubPageToolTip);
             
             Text = Globals.Localization.ProjectName;
-            _startTestButton.Text = Globals.Localization.CreateTest;
+            _startTestButton.Text = Globals.Localization.StartTest;
+            _stopTestButton.Text = Globals.Localization.StopTest;
+            _lastGradeTextLabel.Text = Globals.Localization.GradeLabel;
 
             Int32 index = _subjectComboBox.SelectedIndex;
             _subjectComboBox.Items.Clear();
@@ -41,8 +44,17 @@ namespace EgeCreator.View.Winforms.Forms
         
         private void StartTestButtonOnClick(Object? sender, EventArgs e)
         {
-            _testTab.TabPages.OfType<TabPage>().ForEach(page => page.Dispose());
-            _testTab.TabPages.Clear();
+            if (_testTab.IsStarted)
+            {
+                if (Globals.Localization.YouSureQuestion.ToMessageBox(Globals.Localization.YouSureQuestion, MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    return;
+                }
+                
+                _testTab.Stop();
+            }
+            
+            _testTab.Reset();
 
             dynamic task = Tasks.GetTasksBySubject((SubjectType) _subjectComboBox.SelectedIndex + 1);
 
@@ -51,43 +63,51 @@ namespace EgeCreator.View.Winforms.Forms
                 throw new ArgumentException(nameof(time));
             }
             
-            _timer?.Dispose();
-            _timer = new Timer
-            {
-                Interval = 50
-            };
-            
             DateTime endtime = DateTime.UtcNow.Add(time);
-            
-            _timer.Tick += (_, _) =>
+
+            void Tick(Object obj, EventArgs args)
             {
                 TimeSpan remaining = endtime - DateTime.UtcNow;
-                
-                if(remaining >= TimeSpan.Zero)
+
+                if (remaining >= TimeSpan.Zero)
                 {
                     _timerLabel.Text = remaining.ToString();
                     return;
                 }
-                
-                _timer.Enabled = false;
-                StopTest();
-            };
-            _timer.Start();
 
+                _timerLabel.Text = TimeSpan.Zero.ToString();
+                _testTab.Stop();
+            }
+
+            _testTab.TimerTick += Tick;
+            
             foreach (Template template in task.CreateTest())
             {
-                TabPage page = new TabPage(template.Info.Number.ToString());
-                ExerciseControl control = ExerciseControl.Create(template);
-                page.Controls.Add(control);
-                page.SetSize(_testTab.ClientSize.Width, _testTab.Size.Height - 30);
-                control.SetSize(page);
-                _testTab.TabPages.Add(page);
+                _testTab.AddPage(template);
             }
-        }
-
-        private void StopTest()
-        {
             
+            _testTab.Start();
+            _stopTestButton.Visible = true;
+            _stopTestButton.Enabled = true;
+            _lastGradeLabel.Visible = true;
+            _lastGradeTextLabel.Visible = true;
+        }
+        
+        private void StopTestButtonOnClick(Object? sender, EventArgs e)
+        {
+            if (Globals.Localization.YouSureQuestion.ToMessageBox(Globals.Localization.YouSureQuestion, MessageBoxButtons.YesNo).ToBoolean())
+            {
+                _testTab.Stop();
+            }
+        }        
+        
+        private void StopTest(Int32 grade)
+        {
+            _lastGradeLabel.Text = grade.ToString();
+            _stopTestButton.Enabled = false;
+            
+            grade.ToMessageBox(Globals.Localization.GradeMessageBox, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _testTab.Stop();
         }
     }
 }

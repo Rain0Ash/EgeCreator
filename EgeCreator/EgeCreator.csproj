@@ -60,6 +60,9 @@
       <Compile Update="Model\Generators\Math\Math13.cs">
         <DependentUpon>MathTasks.cs</DependentUpon>
       </Compile>
+      <Compile Update="Model\Generators\Math\Math20.cs">
+        <DependentUpon>MathTasks.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

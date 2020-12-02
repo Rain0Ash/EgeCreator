@@ -66,14 +66,45 @@ namespace EgeCreator.View.Winforms.Forms
             };
             _testTab.SetPosition(_subjectComboBox, PointOffset.Down, 0);
             _testTab.SetSize(ClientSize.Width, ClientSize.Height - _testTab.Location.Y - 20);
+            _testTab.Completed += StopTest;
 
             _timerLabel = new FixedLabel
             {
                 AutoSize = false,
                 ForeColor = Color.Red
             };
-            _timerLabel.SetPosition(0, _testTab.Location.Y + _testTab.Size.Height);
             _timerLabel.SetSize(20, ControlSizeType.Height);
+            _timerLabel.SetPosition(0, _testTab.Location.Y + _testTab.Size.Height);
+
+            _stopTestButton = new FixedButton
+            {
+                Visible = false,
+                Enabled = false
+            };
+            _stopTestButton.SetSize(120, 20);
+            _stopTestButton.SetPosition(ClientSize.Width - _stopTestButton.Size.Width, _testTab.Location.Y + _testTab.Size.Height);
+            _stopTestButton.Click += StopTestButtonOnClick;
+
+            _lastGradeLabel = new FixedLabel
+            {
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                ForeColor = Color.Red,
+                Text = @"-",
+                Visible = false
+            };
+            _lastGradeLabel.SetSize(30, _stopTestButton.Size.Height);
+            _lastGradeLabel.SetPosition(_stopTestButton, PointOffset.Left, 0);
+            
+            _lastGradeTextLabel = new FixedLabel
+            {
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleRight,
+                ForeColor = Color.Red,
+                Visible = false
+            };
+            _lastGradeTextLabel.SetSize(120, _lastGradeLabel.Size.Height);
+            _lastGradeTextLabel.SetPosition(_lastGradeLabel, PointOffset.Left, 0);
 
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -84,6 +115,9 @@ namespace EgeCreator.View.Winforms.Forms
             Controls.Add(_startTestButton);
             Controls.Add(_testTab);
             Controls.Add(_timerLabel);
+            Controls.Add(_stopTestButton);
+            Controls.Add(_lastGradeLabel);
+            Controls.Add(_lastGradeTextLabel);
             ResumeLayout();
         }
 
@@ -93,6 +127,8 @@ namespace EgeCreator.View.Winforms.Forms
         private FixedButton _startTestButton;
         private TestTab _testTab;
         private FixedLabel _timerLabel;
-        private Timer _timer;
+        private FixedButton _stopTestButton;
+        private FixedLabel _lastGradeLabel;
+        private FixedLabel _lastGradeTextLabel;
     }
 }

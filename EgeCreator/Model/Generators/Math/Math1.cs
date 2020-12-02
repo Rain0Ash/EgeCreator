@@ -27,9 +27,9 @@ namespace EgeCreator.Model.Generators.Math
 
             public static CultureStrings GetSubTemplate1(out IImmutableList<String> result)
             {
-                Decimal first = RandomUtils.NextNonZeroDecimal(-20, 30).Round(2);
-                Decimal second = RandomUtils.NextNonZeroDecimal(-20, 30).Round(2);
-                Decimal third = RandomUtils.NextNonZeroDecimal(-20, 30).Round(2);
+                Decimal first = RandomUtils.NextDecimal(-20, 30).Round(2).ToNonZero();
+                Decimal second = RandomUtils.NextDecimal(-20, 30).Round(2).ToNonZero();
+                Decimal third = RandomUtils.NextDecimal(-20, 30).Round(2).ToNonZero();
 
                 Decimal answer = (first * (second + third)).Round(4);
                 result = EnumerableUtils.GetEnumerableFrom(answer.ToString(NumberFormatInfo.CurrentInfo), answer.ToString(NumberFormatInfo.InvariantInfo)).Distinct().ToImmutableArray();
@@ -47,12 +47,12 @@ namespace EgeCreator.Model.Generators.Math
 
             public static CultureStrings GetSubTemplate2(out IImmutableList<String> result)
             {
-                Decimal first = RandomUtils.NextNonZeroDecimal(-20, 30).Round(2);
-                Decimal second = RandomUtils.NextNonZeroDecimal(-20, 30).Round(1);
-                Decimal third = RandomUtils.NextNonZeroDecimal(-20, 30).Round(2);
-                Decimal fourth = RandomUtils.NextNonZeroDecimal(-20, 30).Round(1);
-                Decimal fifth = RandomUtils.NextNonZeroDecimal(-20, 30).Round(2);
-                Decimal sixth = RandomUtils.NextNonZeroDecimal(-20, 30).Round(1);
+                Decimal first = RandomUtils.NextDecimal(-20, 30).Round(2).ToNonZero();
+                Decimal second = RandomUtils.NextDecimal(-20, 30).Round(1).ToNonZero();
+                Decimal third = RandomUtils.NextDecimal(-20, 30).Round(2).ToNonZero();
+                Decimal fourth = RandomUtils.NextDecimal(-20, 30).Round(1).ToNonZero();
+                Decimal fifth = RandomUtils.NextDecimal(-20, 30).Round(2).ToNonZero();
+                Decimal sixth = RandomUtils.NextDecimal(-20, 30).Round(1).ToNonZero();
 
                 Decimal negative = RandomUtils.NextSignDecimal();
                 

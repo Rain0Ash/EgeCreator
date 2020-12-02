@@ -33,9 +33,9 @@ namespace EgeCreator.Model.Generators.Math
             {
                 const String ru = "На палке отмечены поперечные линии красного, жёлтого и зелёного цвета. Если распилить палку по красным линиям, получится {0} кусков, если по жёлтым — {1} кусков, а если по зелёным — {2} кусков. Сколько кусков получится, если распилить палку по линиям всех трёх цветов?";
 
-                Int32 red = RandomUtils.NextInt32(3, 30);
-                Int32 yellow = RandomUtils.NextInt32(3, 30);
-                Int32 green = RandomUtils.NextInt32(3, 30);
+                Int32 red = RandomUtils.NextInt32(5, 30);
+                Int32 yellow = RandomUtils.NextInt32(5, 30);
+                Int32 green = RandomUtils.NextInt32(5, 30);
 
                 Int32 answer = red + yellow + green - 3;
 

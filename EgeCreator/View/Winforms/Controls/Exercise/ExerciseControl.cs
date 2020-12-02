@@ -3,9 +3,13 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using EgeCreator.Model.Common;
+using EgeCreator.Model.Options;
+using NetExtender;
 using NetExtender.GUI.WinForms.Buttons;
+using NetExtender.GUI.WinForms.Controls;
 using NetExtender.GUI.WinForms.TextBoxes;
 using NetExtender.Interfaces;
 using NetExtender.Types.Numerics;
@@ -14,6 +18,8 @@ using NetExtender.Utils.IO;
 
 namespace EgeCreator.View.Winforms.Controls.Exercise
 {
+    public delegate void Completed(Int32 grade, TemplateInfo info);
+    
     public abstract class ExerciseControl<T> : ExerciseControl where T : Template
     {
         public T Template { get; }
@@ -24,16 +30,39 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
         public ExerciseControl(T template)
         {
             Template = template;
-
-            BackColor = Color.Aqua;
             
             AnswerTextBox = new TextBox();
             _submitButton = new FixedButton();
+            
+            _submitButton.Click += SubmitButtonOnClick;
+            
             Controls.Add(AnswerTextBox);
             Controls.Add(_submitButton);
             HandleCreated += UpdateControls;
             SizeChanged += UpdateControls;
             LocationChanged += UpdateControls;
+        }
+
+        public override void UpdateText()
+        {
+            _submitButton.Text = Globals.Localization.Accept;
+        }
+
+        private void SubmitButtonOnClick(Object? sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(AnswerTextBox.Text))
+            {
+                return;
+            }
+            
+            AnswerTextBox.ReadOnly = true;
+            _submitButton.Enabled = false;
+
+            Boolean successful = Template.Result.Contains(AnswerTextBox.Text);
+
+            AnswerTextBox.BackColor = successful ? Color.Chartreuse : Color.Red;
+
+            OnCompleted(successful ? Template.Info.Grade : 0, Template.Info);
         }
 
         protected virtual void UpdateControls(Object sender, EventArgs e)
@@ -45,7 +74,7 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
         }
     }
 
-    public abstract class ExerciseControl : Control
+    public abstract class ExerciseControl : LocalizationControl
     {
         public static ExerciseControl Create(Template template)
         {
@@ -55,6 +84,19 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
                 TemplateType.Latex => new LatexExerciseControl(template as LatexTemplate) as ExerciseControl,
                 _ => throw new NotSupportedException()
             } ?? throw new NullReferenceException();
+        }
+        
+        public event Completed Completed;
+
+        protected void OnCompleted(Int32 grade, TemplateInfo info)
+        {
+            Completed?.Invoke(grade, info);
+        }
+
+        protected override void Dispose(Boolean disposing)
+        {
+            base.Dispose(disposing);
+            Completed = null;
         }
     }
 }

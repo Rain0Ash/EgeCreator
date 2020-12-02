@@ -24,11 +24,17 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
             _textLabel = new FixedLabel()
             {
                 AutoSize = false,
-                TextAlign = ContentAlignment.MiddleCenter
+                TextAlign = ContentAlignment.MiddleCenter,
+                Text = template.FullTemplate
             };
 
-            _textLabel.Text = template.FullTemplate;
             Controls.Add(_textLabel);
+        }
+
+        public override void UpdateText()
+        {
+            base.UpdateText();
+            _textLabel.Text = Template.FullTemplate;
         }
 
         protected override void UpdateControls(Object sender, EventArgs e)

@@ -18,7 +18,7 @@ namespace EgeCreator.Model.Generators.Math
 {
     public partial class BasicMathTasks : Tasks<BasicMathTasks>
     {
-        public override TimeSpan Time { get; } = TimeSpan.FromMinutes(180);
+        public override TimeSpan Time { get; } = TimeSpan.FromMinutes(0.2);
 
         public override IImmutableDictionary<Int32, Int32> Grade { get; } = MathUtils.Range(21)
             .Select(grade => new KeyValuePair<Int32, Int32>(grade, grade * 5))

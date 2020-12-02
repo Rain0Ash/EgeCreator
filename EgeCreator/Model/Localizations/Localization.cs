@@ -89,7 +89,10 @@ namespace EgeCreator.Localizations
         public CultureStrings WriteAccessDeniedError { get; private set; }
         public CultureStrings InitializedInvalidTaskError { get; private set; }
         public CultureStrings StartedInvalidTaskError { get; private set; }
-        public CultureStrings CreateTest { get; private set; }
+        public CultureStrings StartTest { get; private set; }
+        public CultureStrings StopTest { get; private set; }
+        public CultureStrings GradeMessageBox { get; private set; }
+        public CultureStrings GradeLabel { get; private set; }
         public IImmutableDictionary<SubjectType, CultureStrings> Subjects { get; private set; }
         
         public ProgramLocalization(Int32 lcid)
@@ -251,8 +254,8 @@ namespace EgeCreator.Localizations
                 "Bist du sicher?");
 
             OpenGitHubPageToolTip = new CultureStrings(
-                "Open developer github page",
-                "Открыть GitHub страницу разработчика");
+                "Open project github page",
+                "Открыть GitHub страницу проекта");
 
             FileDialogButtonToolTip = new CultureStrings(
                 "Select file path",
@@ -410,9 +413,21 @@ namespace EgeCreator.Localizations
                 "Была предпринята попытка запустить неверную задачу",
                 "Es wurde versucht, eine ungültige Aufgabe zu starten");
 
-            CreateTest = new CultureStrings(
-                "Create test",
-                "Создать тест");
+            StartTest = new CultureStrings(
+                "Start test",
+                "Начать тест");
+
+            StopTest = new CultureStrings(
+                "Stop test",
+                "Завершить тест");
+
+            GradeMessageBox = new CultureStrings(
+                "Grade",
+                "Оценка");
+
+            GradeLabel = new CultureStrings(
+                "Last grade:",
+                "Последняя оценка:");
 
             Subjects = new Dictionary<SubjectType, CultureStrings>
             {
