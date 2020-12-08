@@ -3,14 +3,9 @@
 
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using EgeCreator.Model.Common;
 using NetExtender.GUI.WinForms.Labels;
-using NetExtender.Utils.GUI.Text;
 using NetExtender.Utils.GUI.WinForms.Controls;
-using NetExtender.Utils.IO;
-using NetExtender.Utils.Types;
-using WpfMath;
 
 namespace EgeCreator.View.Winforms.Controls.Exercise
 {

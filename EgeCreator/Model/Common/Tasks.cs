@@ -7,7 +7,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using EgeCreator.Model.Generators.Math;
 using NetExtender.Types;
-using NetExtender.Utils.IO;
 using NetExtender.Utils.Types;
 
 namespace EgeCreator.Model.Common

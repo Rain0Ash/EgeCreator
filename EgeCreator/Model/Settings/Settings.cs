@@ -2,11 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using NetExtender.Apps.Domains;
 using NetExtender.Config;
 using NetExtender.Config.Common;
 using NetExtender.Localizations;
-using NetExtender.Utils.Numerics;
 
 namespace EgeCreator.Model.Options
 {

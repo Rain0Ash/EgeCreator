@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using NetExtender.GUI.WinForms.Buttons;
 using NetExtender.GUI.WinForms.ComboBoxes;
@@ -10,9 +9,6 @@ using EgeCreator.Model.Common;
 using EgeCreator.Model.Options;
 using EgeCreator.View.Winforms.Controls;
 using NetExtender.GUI.WinForms.Labels;
-using NetExtender.Types.Dictionaries;
-using NetExtender.Types.Dictionaries.Interfaces;
-using NetExtender.Types.Maps;
 using NetExtender.Types.Numerics;
 using NetExtender.Utils.GUI.WinForms.Controls;
 using NetExtender.Utils.Types;

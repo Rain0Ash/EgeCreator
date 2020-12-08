@@ -2,18 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
 using EgeCreator.Localizations;
 using NetExtender.Utils.Numerics;
 using NetExtender.Utils.Types;
 using EgeCreator.Model.Common;
-using NetExtender.Utils.Core;
 
 namespace EgeCreator.Model.Generators.Math
 {

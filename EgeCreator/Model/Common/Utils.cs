@@ -6,7 +6,6 @@ using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using EgeCreator.Model.Generators.Math;
 using NetExtender.Utils.Core;
 using NetExtender.Utils.Types;
 

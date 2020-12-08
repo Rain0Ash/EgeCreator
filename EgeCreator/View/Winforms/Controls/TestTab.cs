@@ -11,8 +11,6 @@ using EgeCreator.View.Winforms.Controls.Exercise;
 using NetExtender;
 using NetExtender.Interfaces;
 using NetExtender.Utils.GUI.WinForms.Controls;
-using NetExtender.Utils.IO;
-using NetExtender.Utils.Numerics;
 
 namespace EgeCreator.View.Winforms.Controls
 {

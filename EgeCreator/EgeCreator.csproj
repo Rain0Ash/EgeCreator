@@ -51,9 +51,6 @@
       <Compile Update="View\Winforms\Forms\MainForm.cs">
         <SubType>Form</SubType>
       </Compile>
-      <Compile Update="Model\Generators\Math\Math1.cs">
-        <DependentUpon>MathTasks.cs</DependentUpon>
-      </Compile>
       <Compile Update="Model\Generators\Math\Math6.cs">
         <DependentUpon>MathTasks.cs</DependentUpon>
       </Compile>
@@ -61,6 +58,12 @@
         <DependentUpon>MathTasks.cs</DependentUpon>
       </Compile>
       <Compile Update="Model\Generators\Math\Math20.cs">
+        <DependentUpon>MathTasks.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Model\Generators\Math\Math19.cs">
+        <DependentUpon>MathTasks.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Model\Generators\Math\Math18.cs">
         <DependentUpon>MathTasks.cs</DependentUpon>
       </Compile>
     </ItemGroup>

@@ -32,10 +32,10 @@ namespace EgeCreator.Model.Generators.Math
                 Decimal third = RandomUtils.NextDecimal(-20, 30).Round(2).ToNonZero();
 
                 Decimal answer = (first * (second + third)).Round(4);
-                result = EnumerableUtils.GetEnumerableFrom(answer.ToString(NumberFormatInfo.CurrentInfo), answer.ToString(NumberFormatInfo.InvariantInfo)).Distinct().ToImmutableArray();
+                result = EnumerableUtils.GetEnumerableFrom(answer.GetString(NumberFormatInfo.CurrentInfo), answer.GetString()).Distinct().ToImmutableArray();
 
                 String template =
-                    $@"{first.ToString(NumberFormatInfo.InvariantInfo)} \cdot ({second.ToString(NumberFormatInfo.InvariantInfo)} {third.ToSign()} {third.Abs().ToString(NumberFormatInfo.InvariantInfo)})";
+                    $@"{first.GetString()} \cdot ({second.GetString()} {third.ToSign()} {third.Abs().GetString()})";
                 
                 return new CultureStrings(template);
             }
@@ -57,7 +57,7 @@ namespace EgeCreator.Model.Generators.Math
                 Decimal negative = RandomUtils.NextSignDecimal();
                 
                 Decimal answer = (first / second * (third / fourth + negative * fifth / sixth)).Round(4);
-                result = EnumerableUtils.GetEnumerableFrom(answer.ToString(NumberFormatInfo.CurrentInfo), answer.ToString(NumberFormatInfo.InvariantInfo)).Distinct().ToImmutableArray();
+                result = EnumerableUtils.GetEnumerableFrom(answer.GetString(NumberFormatInfo.CurrentInfo), answer.GetString()).Distinct().ToImmutableArray();
 
                 String template = @$"\frac{{{first}}}{{{second}}} \cdot (\frac{{{third}}}{{{fourth}}} {negative.ToSign()} \frac{{{fifth}}}{{{sixth}}})";
                 

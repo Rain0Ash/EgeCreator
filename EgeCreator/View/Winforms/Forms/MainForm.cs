@@ -2,17 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using NetExtender.GUI.WinForms.Forms;
 using NetExtender.Utils.Types;
 using EgeCreator.Model.Common;
-using EgeCreator.Model.Generators.Math;
 using EgeCreator.Model.Options;
-using EgeCreator.View.Winforms.Controls.Exercise;
 using NetExtender.Utils.GUI;
-using NetExtender.Utils.GUI.WinForms.Controls;
-using NetExtender.Utils.IO;
 
 namespace EgeCreator.View.Winforms.Forms
 {

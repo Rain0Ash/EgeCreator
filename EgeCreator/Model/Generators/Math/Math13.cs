@@ -2,18 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
 using EgeCreator.Localizations;
 using NetExtender.Utils.Numerics;
 using NetExtender.Utils.Types;
 using EgeCreator.Model.Common;
-using NetExtender.Utils.Core;
 
 namespace EgeCreator.Model.Generators.Math
 {
@@ -37,7 +33,7 @@ namespace EgeCreator.Model.Generators.Math
 
                 Decimal answer = 5 * edge * edge;
 
-                result = EnumerableUtils.GetEnumerableFrom(answer.ToString(CultureInfo.CurrentCulture), answer.ToString(CultureInfo.InvariantCulture)).Distinct().ToImmutableArray();
+                result = EnumerableUtils.GetEnumerableFrom(answer.GetString(CultureInfo.CurrentCulture), answer.GetString()).Distinct().ToImmutableArray();
 
                 return new CultureStrings(String.Format(ru, edge));
             }
@@ -55,7 +51,7 @@ namespace EgeCreator.Model.Generators.Math
 
                 Decimal answer = edge * edge * edge;
 
-                result = EnumerableUtils.GetEnumerableFrom(answer.ToString(CultureInfo.CurrentCulture), answer.ToString(CultureInfo.InvariantCulture)).Distinct().ToImmutableArray();
+                result = EnumerableUtils.GetEnumerableFrom(answer.GetString(CultureInfo.CurrentCulture), answer.GetString()).Distinct().ToImmutableArray();
 
                 return new CultureStrings(String.Format(ru, edge));
             }

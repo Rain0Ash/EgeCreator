@@ -7,11 +7,9 @@ using System.Linq;
 using System.Windows.Forms;
 using EgeCreator.Model.Common;
 using EgeCreator.Model.Options;
-using NetExtender;
 using NetExtender.GUI.WinForms.Buttons;
 using NetExtender.GUI.WinForms.Controls;
-using NetExtender.GUI.WinForms.TextBoxes;
-using NetExtender.Interfaces;
+using NetExtender.Images;
 using NetExtender.Types.Numerics;
 using NetExtender.Utils.GUI.WinForms.Controls;
 using NetExtender.Utils.IO;
@@ -26,6 +24,10 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
 
         protected readonly TextBox AnswerTextBox;
         private readonly FixedButton _submitButton;
+        
+        #if DEBUG
+        private readonly FixedButton _helpButton;
+        #endif
 
         public ExerciseControl(T template)
         {
@@ -34,10 +36,35 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
             AnswerTextBox = new TextBox();
             _submitButton = new FixedButton();
             
+#if DEBUG
+            _helpButton = new FixedButton
+            {
+                BackgroundImage = Images.Basic.Question,
+                BackgroundImageLayout = ImageLayout.Stretch,
+            };
+            _helpButton.Click += (_, _) =>
+            {
+                if (KeyboardUtils.Shift.IsShift)
+                {
+                    AnswerTextBox.Text = Template.Result.FirstOrDefault();
+                    SubmitButtonOnClick(null, null);
+                }
+                else
+                {
+                    Template.Result.ToConsole();
+                }
+            };
+#endif
+            
             _submitButton.Click += SubmitButtonOnClick;
             
             Controls.Add(AnswerTextBox);
             Controls.Add(_submitButton);
+            
+#if DEBUG
+            Controls.Add(_helpButton);
+#endif
+            
             HandleCreated += UpdateControls;
             SizeChanged += UpdateControls;
             LocationChanged += UpdateControls;
@@ -67,10 +94,18 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
 
         protected virtual void UpdateControls(Object sender, EventArgs e)
         {
-            AnswerTextBox.SetSize((Int32) (ClientSize.Width * 0.8), AnswerTextBox.Size.Height);
+            AnswerTextBox.SetSize((Int32) (ClientSize.Width * 0.8), ControlSizeType.Width);
             AnswerTextBox.SetPositionInner(this, PointOffset.DownLeft, 0);
             _submitButton.SetSize((Int32) (ClientSize.Width * 0.2), AnswerTextBox.Size.Height);
             _submitButton.SetPosition(AnswerTextBox, PointOffset.Right, 0);
+            
+            #if DEBUG
+            
+            _helpButton.SetPosition(0, 0);
+            _helpButton.SetSize(AnswerTextBox.Size.Height, ControlSizeType.Both);
+            _helpButton.BackColor = Color.Red;
+            
+            #endif
         }
     }
 
