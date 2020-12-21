@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using EgeCreator.Model.Generators.Math;
+using EgeCreator.Model.Generators.Physics;
 using NetExtender.Types;
 using NetExtender.Utils.Types;
 
@@ -58,7 +59,8 @@ namespace EgeCreator.Model.Common
 
         internal static IDictionary<SubjectType, dynamic> Tests { get; } = new List<dynamic>
         {
-            BasicMathTasks.Instance
+            BasicMathTasks.Instance,
+            PhysicsTasks.Instance
         }.ToImmutableDictionary(item => (SubjectType) item.Subject, item => item);
 
         public static dynamic GetTasksBySubject(SubjectType subject)

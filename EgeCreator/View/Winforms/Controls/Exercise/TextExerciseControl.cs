@@ -16,7 +16,7 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
         public TextExerciseControl(TextTemplate template)
             : base(template)
         {
-            _textLabel = new FixedLabel()
+            _textLabel = new FixedLabel
             {
                 AutoSize = false,
                 TextAlign = ContentAlignment.MiddleCenter,

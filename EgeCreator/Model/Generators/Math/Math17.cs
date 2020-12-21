@@ -24,14 +24,57 @@ namespace EgeCreator.Model.Generators.Math
 
             public static CultureStrings GetSubTemplate1(out IImmutableList<String> result)
             {
-                const String template = @"\text{Установите соответствие между неравенствами и их решениями.}" +
+                const String template =
                                         @"\\A) log_{2}x > 1 \text{             } 1) 0 < x < \frac{1}{2}" +
                                         @"\\B) log_{2}x > -1 \text{            } 2) x > 2" +
                                         @"\\C) log_{2}x < 1 \text{             } 3) x > \frac{1}{2}" +
                                         @"\\D) log_{2}x < -1 \text{            } 4) 0 < x < 2";
+                
+                const String en = @"\text{Establish a correspondence between inequalities and their solutions.}" + template;
+                const String ru = @"\text{Установите соответствие между неравенствами и их решениями.}" + template;
 
                 result = EnumerableUtils.GetEnumerableFrom("2341").ToImmutableArray();
-                return new CultureStrings(template);
+                return new CultureStrings(en, ru);
+            }
+            
+            public static Template GetSubTemplate2()
+            {
+                return new LatexTemplate(GetSubTemplate2, Info);
+            }
+
+            public static CultureStrings GetSubTemplate2(out IImmutableList<String> result)
+            {
+                const String template =
+                                        @"\\A) 2^{x} \geq 2 \text{               } 1) x \geq 1" +
+                                        @"\\B) 0.5^{x} \geq 2 \text{             } 2) x \leq 1" +
+                                        @"\\C) 0.5^{x} \leq 2 \text{             } 3) x \leq -1" +
+                                        @"\\D) 2^{x} \leq 2 \text{               } 4) x \geq -1";
+                
+                const String en = @"\text{Establish a correspondence between inequalities and their solutions.}" + template;
+                const String ru = @"\text{Установите соответствие между неравенствами и их решениями.}" + template;
+
+                result = EnumerableUtils.GetEnumerableFrom("1342").ToImmutableArray();
+                return new CultureStrings(en, ru);
+            }
+            
+            public static Template GetSubTemplate3()
+            {
+                return new LatexTemplate(GetSubTemplate3, Info);
+            }
+
+            public static CultureStrings GetSubTemplate3(out IImmutableList<String> result)
+            {
+                const String template =
+                                        @"\\A) 0.5^{x} \geq 4 \text{             } 1) [-2;+\infty)" +
+                                        @"\\B) 2^{x} \geq 4 \text{               } 2) [2;+\infty)" +
+                                        @"\\C) 0.5^{x} \leq 4 \text{             } 3) (-\infty;2]" +
+                                        @"\\D) 2^{x} \leq 4 \text{               } 4) (-\infty;-2]";
+
+                const String en = @"\text{Establish a correspondence between inequalities and their solutions.}" + template;
+                const String ru = @"\text{Установите соответствие между неравенствами и их решениями.}" + template;
+                
+                result = EnumerableUtils.GetEnumerableFrom("4213").ToImmutableArray();
+                return new CultureStrings(en, ru);
             }
         }
     }

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Drawing;
 using EgeCreator.Localizations;
-using NetExtender.Types.Numerics;
 
 namespace EgeCreator.Model.Common
 {
@@ -14,7 +13,7 @@ namespace EgeCreator.Model.Common
     public delegate CultureStrings TextGeneratorDelegate(out IImmutableList<String> result);
     public delegate CultureStrings LatexGeneratorDelegate(out IImmutableList<String> result);
     public delegate Image ImageGeneratorDelegate(out IImmutableList<String> result);
-    public delegate IEnumerable<DoublePoint> GraphicGeneratorDelegate(out IImmutableList<String> result);
+    public delegate GraphicTemplateData GraphicGeneratorDelegate(out IImmutableList<String> result);
     
     public delegate Template TemplateGeneratorDelegate();
 
@@ -84,9 +83,47 @@ namespace EgeCreator.Model.Common
         {
         }
     }
-    
-    public record GraphicTemplate : Template<IEnumerable<DoublePoint>>
+
+    public readonly struct GraphicTemplateData
     {
+        public CultureStrings FullTemplate { get; }
+        public IEnumerable<System.Windows.Point> Points { get; }
+        public Size Interval { get; }
+        
+        public GraphicTemplateData(CultureStrings fullTemplate, IEnumerable<System.Windows.Point> points, Size interval)
+        {
+            FullTemplate = fullTemplate;
+            Points = points;
+            Interval = interval;
+        }
+    }
+    
+    public record GraphicTemplate : Template<GraphicTemplateData>
+    {
+        public new CultureStrings FullTemplate
+        {
+            get
+            {
+                return base.FullTemplate.FullTemplate;
+            }
+        }
+
+        public IEnumerable<System.Windows.Point> Points
+        {
+            get
+            {
+                return base.FullTemplate.Points;
+            }
+        }
+
+        public Size Interval
+        {
+            get
+            {
+                return base.FullTemplate.Interval;
+            }
+        }
+
         public GraphicTemplate(GraphicGeneratorDelegate generator, TemplateInfo info)
             : base(generator.Invoke, info, TemplateType.Graphic)
         {

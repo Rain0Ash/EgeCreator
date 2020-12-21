@@ -93,6 +93,7 @@ namespace EgeCreator.Localizations
         public CultureStrings StopTest { get; private set; }
         public CultureStrings GradeMessageBox { get; private set; }
         public CultureStrings GradeLabel { get; private set; }
+        public CultureStrings SubjectNotAvailable { get; private set; }
         public IImmutableDictionary<SubjectType, CultureStrings> Subjects { get; private set; }
         
         public ProgramLocalization(Int32 lcid)
@@ -429,9 +430,15 @@ namespace EgeCreator.Localizations
                 "Last grade:",
                 "Последняя оценка:");
 
+            SubjectNotAvailable = new CultureStrings(
+                "Subject not available",
+                "Предмет не доступен");
+
             Subjects = new Dictionary<SubjectType, CultureStrings>
             {
-                [SubjectType.MathBasic] = new CultureStrings("Basic math", "Базовая математика")
+                [SubjectType.Unknown] = new CultureStrings("Unknown", "Неизвестно"),
+                [SubjectType.MathBasic] = new CultureStrings("Basic math", "Базовая математика"),
+                [SubjectType.Physics] = new CultureStrings("Physics", "Физика")
                 
             }.ToImmutableDictionary();
         }

@@ -6,6 +6,7 @@ namespace EgeCreator.Model.Common
     public enum SubjectType
     {
         Unknown,
-        MathBasic
+        MathBasic,
+        Physics
     }
 }

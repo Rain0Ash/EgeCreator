@@ -2,12 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using NetExtender.GUI.WinForms.Forms;
 using NetExtender.Utils.Types;
 using EgeCreator.Model.Common;
 using EgeCreator.Model.Options;
 using NetExtender.Utils.GUI;
+using NetExtender.Utils.IO;
 
 namespace EgeCreator.View.Winforms.Forms
 {
@@ -31,7 +33,7 @@ namespace EgeCreator.View.Winforms.Forms
             _subjectComboBox.Items.Clear();
             foreach (SubjectType subject in EnumUtils.GetValuesWithoutDefault<SubjectType>())
             {
-                _subjectComboBox.Items.Add(Globals.Localization.Subjects[subject]);
+                _subjectComboBox.Items.Add(Globals.Localization.Subjects.TryGetValue(subject, Globals.Localization.Error));
             }
 
             _subjectComboBox.SelectedIndex = index;
@@ -51,7 +53,15 @@ namespace EgeCreator.View.Winforms.Forms
             
             _testTab.Reset();
 
-            dynamic task = Tasks.GetTasksBySubject((SubjectType) _subjectComboBox.SelectedIndex + 1);
+            SubjectType subject = (SubjectType) _subjectComboBox.SelectedIndex + 1;
+
+            if (subject != SubjectType.MathBasic)
+            {
+                Globals.Localization.SubjectNotAvailable.ToMessageBox();
+                return;
+            }
+            
+            dynamic task = Tasks.GetTasksBySubject(subject);
 
             if (task.Time is not TimeSpan time)
             {

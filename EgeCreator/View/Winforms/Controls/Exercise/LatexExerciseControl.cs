@@ -4,8 +4,10 @@
 using System;
 using System.Drawing;
 using EgeCreator.Model.Common;
+using EgeCreator.Model.Options;
 using NetExtender.GUI.WinForms.Labels;
 using NetExtender.Utils.GUI.WinForms.Controls;
+using NetExtender.Utils.IO;
 using NetExtender.Utils.Types;
 using WpfMath;
 
@@ -24,14 +26,33 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
                 TextAlign = ContentAlignment.MiddleCenter,
                 ImageAlign = ContentAlignment.MiddleCenter
             };
-            
-            TexFormulaParser parser = new TexFormulaParser();
-            TexFormula formula = parser.Parse(template.FullTemplate);
-            Byte[] png = formula.RenderToPng(15.0, 0.0, 0.0, "Times New Roman");
-            _textLabel.Image = ImageUtils.FromBytes(png);
+
             Controls.Add(_textLabel);
         }
+
+        private Image GetImage()
+        {
+            try
+            {
+                _textLabel.Text = null;
+                TexFormulaParser parser = new TexFormulaParser();
+                TexFormula formula = parser.Parse(Template.FullTemplate);
+                Byte[] png = formula.RenderToPng(15.0, 0.0, 0.0, "Times New Roman");
+                return ImageUtils.FromBytes(png);
+            }
+            catch (Exception)
+            {
+                _textLabel.Text = Globals.Localization.Error;
+                return null;
+            }
+        }
         
+        public override void UpdateText()
+        {
+            base.UpdateText();
+            _textLabel.Image = GetImage();
+        }
+
         protected override void UpdateControls(Object sender, EventArgs e)
         {
             base.UpdateControls(sender, e);

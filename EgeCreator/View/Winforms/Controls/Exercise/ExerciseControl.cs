@@ -17,37 +17,48 @@ using NetExtender.Utils.IO;
 namespace EgeCreator.View.Winforms.Controls.Exercise
 {
     public delegate void Completed(Int32 grade, TemplateInfo info);
-    
+
     public abstract class ExerciseControl<T> : ExerciseControl where T : Template
     {
         public T Template { get; }
 
         protected readonly TextBox AnswerTextBox;
         private readonly FixedButton _submitButton;
-        
-        #if DEBUG
+
+#if DEBUG
         private readonly FixedButton _helpButton;
-        #endif
+#endif
 
         public ExerciseControl(T template)
         {
             Template = template;
-            
+
             AnswerTextBox = new TextBox();
             _submitButton = new FixedButton();
-            
+
 #if DEBUG
             _helpButton = new FixedButton
             {
-                BackgroundImage = Images.Basic.Question,
-                BackgroundImageLayout = ImageLayout.Stretch,
+                FlatStyle = FlatStyle.Flat,
+                FlatAppearance =
+                {
+                    BorderColor = BackColor,
+                    MouseOverBackColor = BackColor,
+                    MouseDownBackColor = BackColor
+                }
+                //BackgroundImage = Images.Basic.Question,
+                //BackgroundImageLayout = ImageLayout.Stretch,
             };
             _helpButton.Click += (_, _) =>
             {
                 if (KeyboardUtils.Shift.IsShift)
                 {
                     AnswerTextBox.Text = Template.Result.FirstOrDefault();
-                    SubmitButtonOnClick(null, null);
+
+                    if (_submitButton.Enabled)
+                    {
+                        SubmitButtonOnClick(null, null);
+                    }
                 }
                 else
                 {
@@ -55,16 +66,16 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
                 }
             };
 #endif
-            
+
             _submitButton.Click += SubmitButtonOnClick;
-            
+
             Controls.Add(AnswerTextBox);
             Controls.Add(_submitButton);
-            
+
 #if DEBUG
             Controls.Add(_helpButton);
 #endif
-            
+
             HandleCreated += UpdateControls;
             SizeChanged += UpdateControls;
             LocationChanged += UpdateControls;
@@ -81,7 +92,7 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
             {
                 return;
             }
-            
+
             AnswerTextBox.ReadOnly = true;
             _submitButton.Enabled = false;
 
@@ -98,14 +109,13 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
             AnswerTextBox.SetPositionInner(this, PointOffset.DownLeft, 0);
             _submitButton.SetSize((Int32) (ClientSize.Width * 0.2), AnswerTextBox.Size.Height);
             _submitButton.SetPosition(AnswerTextBox, PointOffset.Right, 0);
-            
-            #if DEBUG
-            
+
+#if DEBUG
+
             _helpButton.SetPosition(0, 0);
             _helpButton.SetSize(AnswerTextBox.Size.Height, ControlSizeType.Both);
-            _helpButton.BackColor = Color.Red;
-            
-            #endif
+
+#endif
         }
     }
 
@@ -117,10 +127,11 @@ namespace EgeCreator.View.Winforms.Controls.Exercise
             {
                 TemplateType.Text => new TextExerciseControl(template as TextTemplate) as ExerciseControl,
                 TemplateType.Latex => new LatexExerciseControl(template as LatexTemplate) as ExerciseControl,
+                TemplateType.Graphic => new GraphicExerciseControl(template as GraphicTemplate) as ExerciseControl,
                 _ => throw new NotSupportedException()
             } ?? throw new NullReferenceException();
         }
-        
+
         public event Completed Completed;
 
         protected void OnCompleted(Int32 grade, TemplateInfo info)

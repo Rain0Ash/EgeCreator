@@ -7,8 +7,8 @@ namespace EgeCreator.View.Winforms.Layout
 {
     public static class GUILayout
     {
-        public const Int32 MainFormSizeWidth = 450;
-        public const Int32 MainFormSizeHeight = 250;
+        public const Int32 MainFormSizeWidth = 600;
+        public const Int32 MainFormSizeHeight = 350;
         public const Int32 DistanceBetweenControls = 5;
         public const Int32 ButtonSizeWidth = 48;
         public const Int32 ButtonSizeHeight = 48;
